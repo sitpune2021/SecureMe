@@ -7,48 +7,52 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>All Users List</h4>
+                            <h4 class="mt-2">All Users List</h4>
                         </div><hr>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped" id="table-1">
+                                <table class="table table-striped table-hover" id="users-list-table">
                                     <thead>
                                         <tr>
-                                            <th class="text-center">
-                                                #
-                                            </th>
+                                            <th class="text-center">#</th>
                                             <th>User Name</th>
                                             <th>User Role</th>
-                                            <th>Members</th>
-                                            <th>Due Date</th>
-                                            <th>Status</th>
+                                            <th>User Email ID</th>
+                                            <th>User Phone Number</th>
+                                            <th>Created At</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                1
-                                            </td>
-                                            <td>Create a mobile app</td>
-                                            <td class="align-middle">
-                                                <div class="progress progress-xs">
-                                                    <div class="progress-bar bg-success width-per-40">
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <img alt="image" src="assets/img/users/user-5.png" width="35">
-                                            </td>
-                                            <td>2018-01-20</td>
-                                            <td>
-                                                <div class="badge badge-success badge-shadow">Completed</div>
-                                            </td>
-                                            <td><a href="#" class="btn btn-primary">Detail</a></td>
-                                        </tr>
+                                        @foreach ($users as $index => $user)
+                                            <tr>
+                                                <td class="text-center">
+                                                    {{ ($users->currentPage() - 1) * $users->perPage() + $loop->iteration }}
+                                                </td>
+                                                <td>{{ $user->name }}</td>
+                                                <td>{{ $user->user_role }}</td>
+                                                <td>{{ $user->email }}</td>
+                                                <td>{{ $user->phone_no }}</td>
+                                                <td>{{ $user->created_at ? \Carbon\Carbon::parse($user->created_at)->format('j M,Y') : '-' }}</td>
+                                                <td>
+                                                    <a href="{{ url('admin/users/' . $user->id) }}" 
+                                                       class="btn btn-primary btn-sm" 
+                                                       data-bs-toggle="tooltip" 
+                                                       data-bs-placement="top" 
+                                                       title="View User Family Details">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                </td>
 
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
+
+                                <!-- Pagination -->
+                                <div class="d-flex justify-content-center">
+                                    {!! $users->links('pagination::bootstrap-5') !!}
+                                </div>
                             </div>
                         </div>
                     </div>

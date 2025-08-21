@@ -70,14 +70,19 @@
                     </div>
                     <ul class="sidebar-menu">
                         <!-- Dashboard -->
-                        <li class="dropdown active">
-                            <a href="index.html" class="nav-link"><i data-feather="home"></i><span>Dashboard</span></a>
+                        <li class="dropdown {{ Request::is('admin/admin-dashboard') ? 'active' : '' }}">
+                            <a href="{{ url('admin/admin-dashboard') }}" class="nav-link">
+                                <i data-feather="home"></i><span>Dashboard</span>
+                            </a>
                         </li>
 
                         <!-- Manage Users -->
-                        <li class="dropdown">
-                            <a href="{{ url('admin/users-list') }}" class="nav-link"><i data-feather="users"></i><span>Manage
-                                    Users</span></a>
+                        <li class="dropdown {{ Request::is('admin/users-list') ? 'active' : '' }}">
+                            <a href="{{ url('admin/users-list') }}" class="nav-link">
+                                <i data-feather="users"></i><span>Manage Users</span>
+                            </a>
+                        </li>
+
                         </li>
 
                         <!-- Emergency Signals -->

@@ -10,10 +10,10 @@ class UserController extends Controller
     public function UsersList(Request $request)
     {
         $users = DB::table('users')
-            ->select('id', 'name', 'email', 'created_at')
+            ->select('id', 'name', 'email','user_role','phone_no', 'created_at')
             ->orderBy('id', 'desc') 
-            ->paginate(20);
-
+            ->paginate(10);
+        // dd($users);
         return view('admin.users_list', compact('users'));
     }
 }
