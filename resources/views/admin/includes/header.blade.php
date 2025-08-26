@@ -86,15 +86,13 @@
                         </li>
 
                         <!-- Emergency Signals -->
-                        <li class="dropdown">
-                            <a href="index.html" class="nav-link"><i data-feather="alert-triangle"></i><span>Emergency
-                                    Signals</span></a>
+                        <li class="dropdown {{ Request::is('admin/all-emergency-signals') ? 'active' : '' }}">
+                            <a href="{{ url('admin/all-emergency-signals') }}" class="nav-link"><i data-feather="alert-triangle"></i><span>Emergency Signals</span></a>
                         </li>
 
                         <!-- Emergency Responses -->
                         <li class="dropdown">
-                            <a href="index.html" class="nav-link"><i data-feather="activity"></i><span>Emergency
-                                    Responses</span></a>
+                            <a href="index.html" class="nav-link"><i data-feather="activity"></i><span>Emergency Responses</span></a>
                         </li>
 
                         <!-- Instant Emergency Groups -->

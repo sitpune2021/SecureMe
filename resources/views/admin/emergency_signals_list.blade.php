@@ -7,51 +7,61 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="mt-2">All Users List</h4>
+                            <h4 class="mt-2">🚨 All Emergency Signals</h4>
                         </div><hr>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped table-hover" id="users-list-table">
+                                <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th class="text-center">#</th>
+                                            <th>#</th>
                                             <th>User Name</th>
-                                            <th>User Role</th>
-                                            <th>User Email ID</th>
-                                            <th>User Phone Number</th>
-                                            <th>Created At</th>
-                                            <th>Actions</th>
+                                            <th>Phone No</th>
+                                            <th>Status</th>
+                                            <th>Location</th>
+                                            <th>Date & Time</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($users as $index => $user)
-                                            <tr>
-                                                <td class="text-center">
-                                                    {{ ($users->currentPage() - 1) * $users->perPage() + $loop->iteration }}
-                                                </td>
-                                                <td>{{ $user->name }}</td>
-                                                <td>{{ $user->user_role }}</td>
-                                                <td>{{ $user->email }}</td>
-                                                <td>{{ $user->phone_no }}</td>
-                                                <td>{{ $user->created_at ? \Carbon\Carbon::parse($user->created_at)->format('j M,Y') : '-' }}</td>
-                                                <td>
-                                                    <a href="{{ url('admin/users-details/' . $user->id) }}" 
-                                                       class="btn btn-primary btn-sm" 
-                                                       data-bs-toggle="tooltip" 
-                                                       data-bs-placement="top" 
-                                                       title="View User Family Details">
-                                                        <i class="fas fa-eye"></i>
+                                    @foreach($signals as $signal)
+                                        <tr>
+                                            <td>{{ $signal->id }}</td>
+                                            <td>{{ $signal->user_name }}</td>
+                                            <td>{{ $signal->user_phone }}</td>
+                                            <td>
+                                                <span class="badge {{ $signal->signal_status == 'Active' ? 'bg-danger' : 'bg-success' }}">
+                                                    {{ $signal->signal_status }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                @if($signal->latitude && $signal->longitude)
+                                                    <a href="https://maps.google.com/?q={{ $signal->latitude }},{{ $signal->longitude }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                                        View Map
                                                     </a>
-                                                </td>
-
-                                            </tr>
-                                        @endforeach
+                                                @else
+                                                    N/A
+                                                @endif
+                                            </td>
+                                            <td>{{ \Carbon\Carbon::parse($signal->created_at)->format('j M, Y, h:i A') }}</td>
+                                            <td>
+                                                @if($signal->signal_status == 'Active')
+                                                    <form action="{{ url('admin/emergency-signal/close/'.$signal->id) }}" method="POST">
+                                                        @csrf
+                                                        <button class="btn btn-sm btn-warning">Close</button>
+                                                    </form>
+                                                @else
+                                                    <span class="text-muted">Closed</span>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
 
                                 <!-- Pagination -->
                                 <div class="d-flex justify-content-center">
-                                    {!! $users->links('pagination::bootstrap-5') !!}
+                                    {!! $signals->links('pagination::bootstrap-5') !!}
                                 </div>
                             </div>
                         </div>
