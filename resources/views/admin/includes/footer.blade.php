@@ -92,7 +92,7 @@
       </div>
       <footer class="main-footer">
         <div class="footer-left">
-          <a href="templateshub.net">Templateshub</a></a>
+          <a href="https://sitsolutions.co.in/" target="_blank">© 2025 S-IT Solutions PVT LTD</a></a>
         </div>
         <div class="footer-right">
         </div>

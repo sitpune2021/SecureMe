@@ -37,27 +37,35 @@
                     </ul>
                 </div>
                 <ul class="navbar-nav navbar-right">
-                    <li class="dropdown"><a href="#" data-toggle="dropdown"
-                            class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image"
-                                src="assets/img/user.png" class="user-img-radious-style"> <span
-                                class="d-sm-none d-lg-inline-block"></span></a>
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown"
+                           class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                            <img alt="image" src="{{ asset('admin-assets/img/users/user-3.png') }}" class="user-img-radious-style">
+                            <span class="d-sm-none d-lg-inline-block"></span>
+                        </a>
                         <div class="dropdown-menu dropdown-menu-right pullDown">
-                            <div class="dropdown-title">Hello Sarah Smith</div>
-                            <a href="profile.html" class="dropdown-item has-icon"> <i class="far
-                    fa-user"></i> Profile
-                            </a> <a href="timeline.html" class="dropdown-item has-icon"> <i class="fas fa-bolt"></i>
-                                Activities
-                            </a> <a href="#" class="dropdown-item has-icon"> <i class="fas fa-cog"></i>
-                                Settings
+                            <div class="dropdown-title">
+                                {{ session('admin_email', 'Guest') }}
+                            </div>
+
+                            <a href="{{ url('admin/profile') }}" class="dropdown-item has-icon">
+                                <i class="far fa-user"></i> Profile
                             </a>
+                            <a href="{{ url('admin/activities') }}" class="dropdown-item has-icon">
+                                <i class="fas fa-bolt"></i> Activities
+                            </a>
+                            <a href="{{ url('admin/settings') }}" class="dropdown-item has-icon">
+                                <i class="fas fa-cog"></i> Settings
+                            </a>
+
                             <div class="dropdown-divider"></div>
-                            <a href="auth-login.html" class="dropdown-item has-icon text-danger"> <i
-                                    class="fas fa-sign-out-alt"></i>
-                                Logout
+                            <a href="{{ url('admin/logout') }}" class="dropdown-item has-icon text-danger">
+                                <i class="fas fa-sign-out-alt"></i> Logout
                             </a>
                         </div>
                     </li>
                 </ul>
+
             </nav>
 
             <!-- Sidebar starts -->
@@ -91,8 +99,8 @@
                         </li>
 
                         <!-- Emergency Responses -->
-                        <li class="dropdown">
-                            <a href="index.html" class="nav-link"><i data-feather="activity"></i><span>Emergency Responses</span></a>
+                        <li class="dropdown {{ Request::is('admin/all-emergency-responses') ? 'active' : '' }}">
+                            <a href="{{ url('admin/all-emergency-responses') }}" class="nav-link"><i data-feather="activity"></i><span>Emergency Responses</span></a>
                         </li>
 
                         <!-- Instant Emergency Groups -->

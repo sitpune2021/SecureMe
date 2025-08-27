@@ -31,7 +31,7 @@ class LoginController extends Controller
             // Store admin info in session
             Session::put('admin_id', $admin->id);
             Session::put('admin_email', $admin->email);
-
+             // dd(Session::all()); 
             return redirect()->route('admin.dashboard')->with('success', 'Welcome back, Admin!');
         }
 

@@ -11,7 +11,7 @@
                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                         <div class="card-content">
                           <h5 class="font-15">Total Users</h5>
-                          <h2 class="mb-3 font-18">258</h2>
+                          <h2 class="mb-3 font-18">{{ $users }}</h2>
                           <!-- <p class="mb-0"><span class="col-green">10%</span> Increase</p> -->
                         </div>
                       </div>
@@ -33,7 +33,7 @@
                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                         <div class="card-content">
                           <h5 class="font-15">Total Helpers</h5>
-                          <h2 class="mb-3 font-18">1,287</h2>
+                          <h2 class="mb-3 font-18">{{ $total_helpers}}</h2>
                           <!-- <p class="mb-0"><span class="col-orange">09%</span> Decrease</p> -->
                         </div>
                       </div>
@@ -55,7 +55,7 @@
                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                         <div class="card-content">
                           <h5 class="font-15">Total Police</h5>
-                          <h2 class="mb-3 font-18">128</h2>
+                          <h2 class="mb-3 font-18">{{ $TotalPolices }}</h2>
                           <!-- <p class="mb-0"><span class="col-green">18%</span>Increase</p> -->
                         </div>
                       </div>
@@ -77,7 +77,7 @@
                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                         <div class="card-content">
                           <h5 class="font-15" style="white-space: nowrap;">Active Emergency Signals</h5>
-                          <h2 class="mb-3 font-18">100</h2>
+                          <h2 class="mb-3 font-18 text-danger">{{ $active_emergency_signals }}</h2>
                           <!-- <p class="mb-0"><span class="col-green">42%</span> Increase</p> -->
                         </div>
                       </div>
@@ -99,7 +99,7 @@
                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                         <div class="card-content">
                           <h5 class="font-15" style="white-space: nowrap;">Resolved Emergency Signals</h5>
-                          <h2 class="mb-3 font-18">150</h2>
+                          <h2 class="mb-3 font-18 text-success">{{ $resolved_emergency_signals }}</h2>
                           <!-- <p class="mb-0"><span class="col-green">42%</span> Increase</p> -->
                         </div>
                       </div>

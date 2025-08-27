@@ -13,12 +13,12 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            'auth.check' => \App\Http\Middleware\AuthenticateUser::class,
+            'auth.admin' => \App\Http\Middleware\AuthenticateUser::class,
         ]);
 
         // Define a middleware group
         $middleware->group('authGroup', [
-            'auth.check',   // our custom middleware
+            'auth.admin',   // our custom middleware
             // You can add more here like 'verified', 'throttle:60,1', etc.
         ]);
     })
