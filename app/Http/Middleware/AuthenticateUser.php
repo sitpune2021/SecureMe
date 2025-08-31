@@ -17,7 +17,6 @@ class AuthenticateUser
      */
     public function handle($request, Closure $next)
     {
-        // Check if user is logged in
         if (!Session::has('admin_id')) {
             return redirect()->route('admin.admin-login')
                 ->with('error', 'Please login to access this page.');

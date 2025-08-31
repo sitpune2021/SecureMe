@@ -3,7 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\AuthenticateUser;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -13,13 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            'auth.admin' => \App\Http\Middleware\AuthenticateUser::class,
-        ]);
-
-        // Define a middleware group
-        $middleware->group('authGroup', [
-            'auth.admin',   // our custom middleware
-            // You can add more here like 'verified', 'throttle:60,1', etc.
+            'auth.admin' => AuthenticateUser::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

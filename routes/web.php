@@ -13,7 +13,7 @@ Route::post('/admin/save-login',[LoginController::class,'SaveLogin'])->name('adm
 Route::get('/admin/logout', [LoginController::class, 'Logout'])->name('admin.logout');
 
 /// Protected Admin Routes
-// Route::middleware(['auth.admin'])->prefix('admin')->group(function () {
+Route::middleware(['auth.admin'])->group(function () {
 
     Route::get('/admin/admin-dashboard',[DashboardController::class,'AdminDashboard'])->name('admin.dashboard');
 
@@ -30,7 +30,7 @@ Route::get('/admin/logout', [LoginController::class, 'Logout'])->name('admin.log
 
 
 
-// });
+});
 
 
 
