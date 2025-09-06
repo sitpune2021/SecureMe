@@ -5,10 +5,9 @@
         <div class="section-body">
             <div class="row">
                 <div class="col-12">
-                    <div class="card shadow-sm">
+                   <div class="card shadow-sm">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="mt-2"><i class="fas fa-chart-line text-primary mr-2"></i> Reports and Logs</h4>
-                            <!-- <span class="badge badge-info">Overview</span> -->
                         </div>
                         <hr class="mt-0 mb-0">
                         <div class="card-body">
@@ -19,21 +18,57 @@
                                     <div class="card report-card text-center shadow border-0 h-100">
                                         <div class="card-body">
                                             <i class="fas fa-user text-primary fa-3x mb-3"></i>
-                                            <h5 class="card-title">User Activity Reports</h5>
-                                            <p class="text-muted small">Track user logins, activity, and engagement.</p>
+                                            <h5 class="card-title">User Reports</h5>
+                                            <p class="text-muted small">Track user registrations, activity, and family details.</p>
                                             <a href="{{ url('reports/users') }}" class="btn btn-sm btn-outline-primary">View Report</a>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Emergency Reports -->
+                                <!-- Family Reports -->
+                                <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                    <div class="card report-card text-center shadow border-0 h-100">
+                                        <div class="card-body">
+                                            <i class="fas fa-users text-success fa-3x mb-3"></i>
+                                            <h5 class="card-title">Family Reports</h5>
+                                            <p class="text-muted small">View details of registered family members linked to users.</p>
+                                            <a href="{{ url('reports/families') }}" class="btn btn-sm btn-outline-success">View Report</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Emergency Alerts Report -->
                                 <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                                     <div class="card report-card text-center border-0 h-100">
                                         <div class="card-body">
                                             <i class="fas fa-exclamation-triangle text-danger fa-3x mb-3"></i>
-                                            <h5 class="card-title">Emergency Reports</h5>
-                                            <p class="text-muted small">View all instant emergency alerts & response logs.</p>
-                                            <a href="{{ url('reports/emergency') }}" class="btn btn-sm btn-outline-danger">View Report</a>
+                                            <h5 class="card-title">Emergency Alerts</h5>
+                                            <p class="text-muted small">View and analyze instant emergency alerts raised by users.</p>
+                                            <a href="{{ url('reports/emergency-alerts') }}" class="btn btn-sm btn-outline-danger">View Report</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Emergency Responses Report -->
+                                <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                    <div class="card report-card text-center border-0 h-100">
+                                        <div class="card-body">
+                                            <i class="fas fa-hands-helping text-warning fa-3x mb-3"></i>
+                                            <h5 class="card-title">Emergency Responses</h5>
+                                            <p class="text-muted small">Check how helpers and police responded to emergencies.</p>
+                                            <a href="{{ url('reports/emergency-responses') }}" class="btn btn-sm btn-outline-warning">View Report</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Instant Emergency Groups Report -->
+                                <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                    <div class="card report-card text-center border-0 h-100">
+                                        <div class="card-body">
+                                            <i class="fas fa-layer-group text-info fa-3x mb-3"></i>
+                                            <h5 class="card-title">Instant Emergency Groups</h5>
+                                            <p class="text-muted small">List groups created during emergencies with member details.</p>
+                                            <a href="{{ url('reports/emergency-groups') }}" class="btn btn-sm btn-outline-info">View Report</a>
                                         </div>
                                     </div>
                                 </div>
@@ -42,33 +77,10 @@
                                 <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                                     <div class="card report-card text-center border-0 h-100">
                                         <div class="card-body">
-                                            <i class="fas fa-database text-success fa-3x mb-3"></i>
+                                            <i class="fas fa-database text-secondary fa-3x mb-3"></i>
                                             <h5 class="card-title">System Logs</h5>
-                                            <p class="text-muted small">Check login attempts, errors, and system updates.</p>
-                                            <a href="{{ url('reports/system') }}" class="btn btn-sm btn-outline-success">View Report</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Additional Reports -->
-                                <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-                                    <div class="card report-card text-center border-0 h-100">
-                                        <div class="card-body">
-                                            <i class="fas fa-file-alt text-warning fa-3x mb-3"></i>
-                                            <h5 class="card-title">Audit Logs</h5>
-                                            <p class="text-muted small">Detailed history of changes and admin actions.</p>
-                                            <a href="{{ url('reports/audit') }}" class="btn btn-sm btn-outline-warning">View Report</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-                                    <div class="card report-card text-center border-0 h-100">
-                                        <div class="card-body">
-                                            <i class="fas fa-envelope text-info fa-3x mb-3"></i>
-                                            <h5 class="card-title">Communication Logs</h5>
-                                            <p class="text-muted small">Monitor notifications, messages, and alerts.</p>
-                                            <a href="{{ url('reports/communication') }}" class="btn btn-sm btn-outline-info">View Report</a>
+                                            <p class="text-muted small">Monitor login attempts, errors, and admin actions.</p>
+                                            <a href="{{ url('reports/system-logs') }}" class="btn btn-sm btn-outline-secondary">View Report</a>
                                         </div>
                                     </div>
                                 </div>

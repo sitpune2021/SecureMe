@@ -85,7 +85,7 @@
                         </li>
 
                         <!-- Manage Users -->
-                        <li class="dropdown {{ Request::is('admin/users-list') ? 'active' : '' }}">
+                        <li class="dropdown {{ Request::is('admin/users-list*') || Request::is('admin/users-details*') ? 'active' : '' }}">
                             <a href="{{ url('admin/users-list') }}" class="nav-link">
                                 <i data-feather="users"></i><span>Manage Users</span>
                             </a>

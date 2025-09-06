@@ -7,13 +7,95 @@
                 <div class="col-12">
                     <div class="card shadow-sm">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <h4 class="mt-2"><i class="fas fa-chart-line text-primary mr-2"></i> Reports and Logs</h4>
+                            <h4 class="mt-2"><i class="fas fa-chart-line text-primary mr-2"></i> Settings</h4>
                             <!-- <span class="badge badge-info">Overview</span> -->
                         </div>
                         <hr class="mt-0 mb-0">
                         <div class="card-body">
-                            
-                        </div>
+    <!-- Tabs -->
+    <ul class="nav nav-tabs" id="settingsTabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab">Profile</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="security-tab" data-toggle="tab" href="#security" role="tab">Security</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="preferences-tab" data-toggle="tab" href="#preferences" role="tab">Preferences</a>
+        </li>
+    </ul>
+
+    <!-- Tab Content -->
+    <div class="tab-content mt-3" id="settingsTabsContent">
+        <!-- Profile Tab -->
+        <div class="tab-pane fade show active" id="profile" role="tabpanel">
+            <form>
+                <div class="form-group">
+                    <label>Admin Name</label>
+                    <input type="text" class="form-control" value="">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" value="{{ session('admin_email') }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="text" class="form-control" value="">
+                </div>
+                <div class="form-group">
+                    <label>Profile Photo</label>
+                    <input type="file" class="form-control-file">
+                </div>
+                <button class="btn btn-primary">Update Profile</button>
+            </form>
+        </div>
+
+        <!-- Security Tab -->
+        <div class="tab-pane fade" id="security" role="tabpanel">
+            <form>
+                <div class="form-group">
+                    <label>Current Password</label>
+                    <input type="password" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>New Password</label>
+                    <input type="password" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" class="form-control">
+                </div>
+                <button class="btn btn-warning">Reset Password</button>
+            </form>
+        </div>
+
+        <!-- Preferences Tab -->
+        <div class="tab-pane fade" id="preferences" role="tabpanel">
+            <form>
+                <div class="form-group">
+                    <label>Theme</label>
+                    <select class="form-control">
+                        <option>Light</option>
+                        <option>Dark</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Language</label>
+                    <select class="form-control">
+                        <option>English</option>
+                        <option>Hindi</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Time Zone</label>
+                    <input type="text" class="form-control" value="Asia/Kolkata">
+                </div>
+                <button class="btn btn-success">Save Preferences</button>
+            </form>
+        </div>
+    </div>
+</div>
+
                     </div>
                 </div>
             </div>
