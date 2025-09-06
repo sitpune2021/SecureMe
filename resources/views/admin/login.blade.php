@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Insta Ridez Admin Panel</title>
+    <title>Secure Me - Admin Panel</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('admin-assets/css/app.min.css') }}">
