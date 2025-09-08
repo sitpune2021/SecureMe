@@ -1,14 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\controllers\LoginController;
-use App\Http\controllers\DashboardController;
-use App\Http\controllers\UserController;
-use App\Http\controllers\SignalController;
-use App\Http\controllers\EmergencyResponsesController;
-use App\Http\controllers\InstantEmergencyGroupController;
-use App\Http\controllers\ReportController;
-use App\Http\controllers\SettingsController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\SignalController;
+use App\Http\Controllers\EmergencyResponsesController;
+use App\Http\Controllers\InstantEmergencyGroupController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SettingsController;
 
 
 
