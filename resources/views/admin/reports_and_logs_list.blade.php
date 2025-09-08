@@ -7,7 +7,7 @@
                 <div class="col-12">
                    <div class="card shadow-sm">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <h4 class="mt-2"><i class="fas fa-chart-line text-primary mr-2"></i> Reports and Logs</h4>
+                            <h4 class="mt-2"><i class="fas fa-chart-line text-primary mr-2"></i>📝 Reports and Logs</h4>
                         </div>
                         <hr class="mt-0 mb-0">
                         <div class="card-body">

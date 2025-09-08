@@ -104,17 +104,17 @@
                         </li>
 
                         <!-- Instant Emergency Groups -->
-                        <li class="dropdown">
+                        <li class="dropdown {{ Request::is('admin/instant-emergency-groups') ? 'active' : '' }}">
                             <a href="{{ url('admin/instant-emergency-groups') }}" class="nav-link"><i data-feather="users"></i><span>Instant Emergency Groups</span></a>
                         </li>
 
                         <!-- Reports & Logs -->
-                        <li class="dropdown">
+                        <li class="dropdown {{ Request::is('admin/reports-and-logs') ? 'active' : '' }}">
                             <a href="{{ url('admin/reports-and-logs') }}" class="nav-link"><i data-feather="file-text"></i><span>Reports & Logs</span></a>
                         </li>
 
                         <!-- Settings -->
-                        <li class="dropdown">
+                        <li class="dropdown {{ Request::is('admin/settings') ? 'active' : '' }}">
                             <a href="{{ url('admin/settings') }}" class="nav-link"><i data-feather="settings"></i><span>Settings</span></a>
                         </li>
                     </ul>

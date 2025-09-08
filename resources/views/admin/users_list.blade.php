@@ -7,7 +7,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="mt-2">All Users List</h4>
+                            <h4 class="mt-2">👥 All Users List</h4>
                         </div><hr>
                         <div class="card-body">
                             <div class="table-responsive">

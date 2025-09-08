@@ -19,24 +19,41 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('admin-assets/img/favicon.ico') }}">
 </head>
 
-<body>
+<body style="background-color: #EFEFEF;">
     <div class="loader"></div>
     <div id="app">
         <section class="section">
             <div class="container mt-5">
                 <div class="row">
-                    <div
-                        class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+                    <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h4>Login</h4>
+                                <h4>Admin Login</h4>
                             </div>
                             <div class="card-body">
+                                {{-- ✅ Show Validation or Login Errors --}}
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul class="mb-0">
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+
+                                {{-- ✅ Show Success Message --}}
+                                @if (session('success'))
+                                    <div class="alert alert-success">
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
+
                                 <form action="{{ route('admin.save-login')}}" method="POST" class="needs-validation"
-                                    novalidate="">
+                                    novalidate="" id="loginForm">
                                     @csrf
                                     <div class="form-group">
-                                        <label for="email">Email</label>
+                                        <label for="email">Email <code>*</code></label>
                                         <input id="email" type="email" class="form-control" name="email" tabindex="1"
                                             required autofocus>
                                         <div class="invalid-feedback">
@@ -45,12 +62,12 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="d-block">
-                                            <label for="password" class="control-label">Password</label>
-                                            <div class="float-right">
+                                            <label for="password" class="control-label">Password <code>*</code></label>
+                                            <!-- <div class="float-right">
                                                 <a href="auth-forgot-password.html" class="text-small">
                                                     Forgot Password?
                                                 </a>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <input id="password" type="password" class="form-control" name="password"
                                             tabindex="2" required>
@@ -66,7 +83,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                                        <button type="submit" id="loginBtn"  class="btn btn-primary btn-lg btn-block" tabindex="4">
                                             Login
                                         </button>
                                     </div>
@@ -77,25 +94,33 @@
                                 <div class="row sm-gutters">
                                     <div class="col-6">
                                         <a class="btn btn-block btn-social btn-facebook">
-                                            <span class="fab fa-facebook"></span> Facebook
+                                            <span class="fab fa-facebook bg-primary"></span> Facebook
                                         </a>
                                     </div>
                                     <div class="col-6">
                                         <a class="btn btn-block btn-social btn-twitter">
-                                            <span class="fab fa-twitter"></span> Twitter
+                                            <span class="fab fa-twitter bg-primary"></span> Twitter
                                         </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="mt-5 text-muted text-center">
-                            Don't have an account? <a href="auth-register.html">Create One</a>
+                           Secure Me – where trust meets technology.
                         </div>
                     </div>
                 </div>
             </div>
         </section>
     </div>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function () {
+            let btn = document.getElementById('loginBtn');
+            btn.disabled = true; // prevent multiple clicks
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...'; 
+        });
+    </script>
+
     <!-- General JS Scripts -->
     <script src="{{ asset('admin-assets/js/app.min.js') }}"></script>
 
