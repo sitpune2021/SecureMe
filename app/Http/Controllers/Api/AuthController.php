@@ -73,13 +73,27 @@ class AuthController extends Controller
     // ✅ Logout API
     public function logout(Request $request)
     {
-        $request->user()->tokens()->delete();
+        $user = $request->user(); // get authenticated user
+
+        if (!$user) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Unauthenticated'
+            ], 401);
+        }
+
+        // Safely delete the current access token
+        $token = $user->currentAccessToken();
+        if ($token) {
+            $token->delete();
+        }
 
         return response()->json([
-            'status'  => true,
-            'message' => 'Logged out successfully',
+            'status' => true,
+            'message' => 'Logged out successfully'
         ]);
     }
+
 
     // ✅ Profile API
     public function profile(Request $request)

@@ -21,9 +21,11 @@ return Application::configure(basePath: dirname(__DIR__))
 
         // ✅ Middleware group "api"
         $middleware->group('api', [
-            EnsureFrontendRequestsAreStateful::class,
+            EnsureFrontendRequestsAreStateful::class, // only for SPA auth
             SubstituteBindings::class,
         ]);
+
+
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
