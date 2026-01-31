@@ -14,6 +14,7 @@ use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller
 {
+
     public function register(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
@@ -69,33 +70,49 @@ class AuthController extends Controller
         }
     }
 
-    // ✅ Login API
-    public function login(Request $request)
+    public function login(Request $request): JsonResponse
     {
-        $request->validate([
-            'email'    => 'required|email',
-            'password' => 'required|min:8',
+        $validator = Validator::make($request->all(), [
+            'email'    => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required', 'string', 'min:8'],
         ]);
 
-        $user = User::where('email', $request->email)->first();
-
-        if (! $user || ! Hash::check($request->password, $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
-            ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'status'  => false,
+                'message' => 'Validation Error',
+                'errors'  => $validator->errors()
+            ], 422);
         }
 
-        // Delete old tokens for better security
-        $user->tokens()->delete();
+        $validated = $validator->validated();
+        $user = User::where('email', strtolower(trim($validated['email'])))->first();
 
-        $token = $user->createToken('secureme_token')->plainTextToken;
+        if (!$user || !Hash::check($validated['password'], $user->password)) {
+            return response()->json([
+                'status'  => false,
+                'message' => 'Invalid email or password.',
+            ], 401);
+        }
 
-        return response()->json([
-            'status'  => true,
-            'message' => 'Login successful',
-            'token'   => $token,
-            'user'    => $user,
-        ]);
+        try {
+            $user->tokens()->delete();
+            $token = $user->createToken('auth_api_token')->plainTextToken;
+
+            return response()->json([
+                'status'  => true,
+                'message' => 'Login successful',
+                'data'    => [
+                    'token' => $token,
+                    'user'  => $user->only(['id', 'name', 'email', 'user_role', 'phone_no']),
+                ],
+            ], 200);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'status'  => false,
+                'message' => 'An error occurred during the login process.',
+            ], 500);
+        }
     }
 
     // ✅ Logout API
