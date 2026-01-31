@@ -12,7 +12,6 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        // dd($request->all());
         $request->validate([
             'user_role' => 'required',
             'name'      => 'required|string|max:255',
