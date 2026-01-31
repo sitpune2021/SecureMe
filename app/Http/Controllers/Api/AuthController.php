@@ -5,38 +5,68 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
+    public function register(Request $request): JsonResponse
     {
-        $request->validate([
-            'user_role' => 'required',
+        $validator = Validator::make($request->all(), [
+            'user_role' => 'required|string',
             'name'      => 'required|string|max:255',
-            'email'     => 'required|string|email|unique:users,email',
-            'password'  => 'required|string|min:8|confirmed',
-            'phone_no'  => 'required',
-
+            'email'     => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users,email'],
+            'password'  => 'required|string|min:8',
+            'phone_no'  => ['required', 'string', 'min:10', 'unique:users,phone_no'],
         ]);
 
-        $user = User::create([
-            'user_role'=> $request->user_role,
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'password' => Hash::make($request->password),
-            'phone_no' => $request->phone_no,
-        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'status'  => false,
+                'message' => 'Validation Error',
+                'errors'  => $validator->errors()
+            ], 422);
+        }
 
-        $token = $user->createToken('secureme_token')->plainTextToken;
+        $validated = $validator->validated();
+        DB::beginTransaction();
 
-        return response()->json([
-            'status'  => true,
-            'message' => 'User registered successfully',
-            'token'   => $token,
-            'user'    => $user,
-        ], 201);
+        try {
+            $user = User::create([
+                'user_role' => $validated['user_role'],
+                'name'      => $validated['name'],
+                'email'     => strtolower($validated['email']),
+                'password'  => Hash::make($validated['password']),
+                'phone_no'  => $validated['phone_no'],
+            ]);
+
+            $token = $user->createToken('auth_api_token')->plainTextToken;
+            DB::commit();
+
+            return response()->json([
+                'status'  => true,
+                'message' => 'Account created successfully',
+                'data'    => [
+                    'token' => $token,
+                    'user'  => $user->only(['id', 'name', 'email', 'phone_no', 'user_role']),
+                ],
+            ], 201);
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            Log::critical("User Registration Failure", [
+                'email' => $request->email,
+                'error' => $e->getMessage()
+            ]);
+            return response()->json([
+                'status'  => false,
+                'message' => 'Registration failed due to a system error.',
+                // 'debug'   => config('app.debug') ? $e->getMessage() : null
+            ], 500);
+        }
     }
 
     // ✅ Login API
