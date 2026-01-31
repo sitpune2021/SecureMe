@@ -10,7 +10,6 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    // ✅ Register API
     public function register(Request $request)
     {
         // dd($request->all());
@@ -18,8 +17,8 @@ class AuthController extends Controller
             'user_role' => 'required',
             'name'      => 'required|string|max:255',
             'email'     => 'required|string|email|unique:users,email',
-            'password'  => 'required|string|min:8|confirmed', 
-            'phone_no'  => 'required', 
+            'password'  => 'required|string|min:8|confirmed',
+            'phone_no'  => 'required',
 
         ]);
 
