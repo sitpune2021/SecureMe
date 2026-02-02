@@ -17,7 +17,7 @@ class AuthController extends Controller
 
     public function register(Request $request): JsonResponse
     {
-        dd($request->all());
+        // dd($request->all());
         $validator = Validator::make($request->all(), [
             'user_role' => 'required|string',
             'name'      => 'required|string|max:255',
