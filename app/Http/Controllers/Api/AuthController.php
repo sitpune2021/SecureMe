@@ -17,6 +17,7 @@ class AuthController extends Controller
 
     public function register(Request $request): JsonResponse
     {
+        dd($request->all());
         $validator = Validator::make($request->all(), [
             'user_role' => 'required|string',
             'name'      => 'required|string|max:255',
@@ -57,6 +58,7 @@ class AuthController extends Controller
                 ],
             ], 201);
         } catch (\Throwable $e) {
+            dd($e);
             DB::rollBack();
             Log::critical("User Registration Failure", [
                 'email' => $request->email,
@@ -64,8 +66,8 @@ class AuthController extends Controller
             ]);
             return response()->json([
                 'status'  => false,
-                'message' => 'Registration failed due to a system error ccc.',
-                'debug'   => $e->getMessage()
+                'message' => 'Registration failed due to a system error.',
+                'error'   => $e->getMessage()
             ], 500);
         }
     }
