@@ -65,7 +65,7 @@ class AuthController extends Controller
             return response()->json([
                 'status'  => false,
                 'message' => 'Registration failed due to a system error.',
-                // 'debug'   => config('app.debug') ? $e->getMessage() : null
+                'debug'   => config('app.debug') ? $e->getMessage() : null
             ], 500);
         }
     }
