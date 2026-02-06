@@ -14,10 +14,8 @@ use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller
 {
-
     public function register(Request $request): JsonResponse
     {
-        // dd($request->all());
         $validator = Validator::make($request->all(), [
             'user_role' => 'required|string',
             'name'      => 'required|string|max:255',
@@ -58,7 +56,6 @@ class AuthController extends Controller
                 ],
             ], 201);
         } catch (\Throwable $e) {
-            dd($e);
             DB::rollBack();
             Log::critical("User Registration Failure", [
                 'email' => $request->email,
@@ -110,7 +107,6 @@ class AuthController extends Controller
                 ],
             ], 200);
         } catch (\Throwable $e) {
-            dd($e);
             return response()->json([
                 'status'  => false,
                 'message' => 'An error occurred during the login process.',
@@ -118,37 +114,111 @@ class AuthController extends Controller
         }
     }
 
-    // ✅ Logout API
-    public function logout(Request $request)
+    public function logout(Request $request): JsonResponse
     {
-        $user = $request->user(); // get authenticated user
+        dd($request->all());
+        try {
+            $user = $request->user();
 
-        if (!$user) {
+            if (!$user) {
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'Unauthenticated.',
+                ], 401);
+            }
+
+            $currentToken = $user->currentAccessToken();
+
+            if ($currentToken) {
+                $currentToken->delete();
+            }
+
             return response()->json([
-                'status' => false,
-                'message' => 'Unauthenticated'
-            ], 401);
-        }
+                'status'  => true,
+                'message' => 'Logged out successfully.',
+            ], 200);
+        } catch (\Throwable $e) {
+            Log::error("Logout Error: " . $e->getMessage());
 
-        // Safely delete the current access token
-        $token = $user->currentAccessToken();
-        if ($token) {
-            $token->delete();
+            return response()->json([
+                'status'  => false,
+                'message' => 'Server Error',
+                'debug_error' => $e->getMessage()
+            ], 500);
         }
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Logged out successfully'
-        ]);
     }
 
+    // public function profile(Request $request)
+    // {
+    //     try {
+    //         return response()->json([
+    //             'status' => true,
+    //             'user'   => $request->user(),
+    //         ]);
+    //     } catch (\Throwable $e) {
+    //         Log::error("Logout Error: " . $e->getMessage());
+    //         return response()->json([
+    //             'status'  => false,
+    //             'message' => 'An error occurred during the logout process.',
+    //         ], 500);
+    //     }
+    // }
 
-    // ✅ Profile API
-    public function profile(Request $request)
+    // public function profile(Request $request): JsonResponse
+    // {
+    //     try {
+    //         $user = $request->user();
+
+    //         if (!$user) {
+    //             return response()->json([
+    //                 'status'  => false,
+    //                 'message' => 'User not found or unauthenticated.',
+    //             ], 401);
+    //         }
+
+    //         return response()->json([
+    //             'status' => true,
+    //             'message' => 'Profile retrieved successfully',
+    //             'data'   => [
+    //                 'user' => $user->only(['id', 'name', 'email', 'user_role', 'phone_no', 'created_at']),
+    //             ],
+    //         ], 200);
+    //     } catch (\Throwable $e) {
+    //         Log::error("Profile Fetch Error: " . $e->getMessage());
+
+    //         return response()->json([
+    //             'status'  => false,
+    //             'message' => 'An error occurred while fetching the profile.',
+    //         ], 500);
+    //     }
+    // }
+
+    public function profile(Request $request): JsonResponse
     {
-        return response()->json([
-            'status' => true,
-            'user'   => $request->user(),
-        ]);
+        try {
+            $user = $request->user();
+
+            if (!$user) {
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'User not found or unauthenticated.',
+                ], 401);
+            }
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Profile retrieved successfully',
+                'data'   => [
+                    'user' => $user->only(['id', 'name', 'email', 'user_role', 'phone_no', 'created_at']),
+                ],
+            ], 200);
+        } catch (\Throwable $e) {
+            // Log::error("Profile Fetch Error: " . $e->getMessage());
+
+            return response()->json([
+                'status'  => false,
+                'message' => 'An error occurred while fetching the profile.',
+            ], 500);
+        }
     }
 }
